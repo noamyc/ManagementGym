@@ -1,0 +1,53 @@
+{
+	"type": "UserCollection",
+	"properties": {
+		"age": {
+			"name": "age",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "age",
+			"order": 0
+		},
+		"telephonnumber": {
+			"name": "telephonnumber",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "telephonnumber",
+			"order": 1
+		},
+		"weight": {
+			"name": "weight",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "weight",
+			"order": 2
+		},
+		"height": {
+			"name": "height",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "height",
+			"order": 3
+		},
+		"boardtraining": {
+			"name": "boardtraining",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "boardtraining",
+			"order": 4
+		},
+		"subscription": {
+			"name": "subscription",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "subscription",
+			"order": 5
+		}
+	}
+}

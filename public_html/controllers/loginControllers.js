@@ -1,11 +1,11 @@
 /* global angular */
 
 angular.module("urlCtrl")
-.constant("userUrl", "http://localhost:5500/users/login")
-.controller("loginCtrl", function($scope, $http, userUrl, $location){
+.constant("userLoginUrl", "http://localhost:5500/users/login")
+.controller("loginCtrl", function($scope, $http, userLoginUrl, $location){
      
     $scope.accedi = function(user, pass){
-        $http.post(userUrl, {
+        $http.post(userLoginUrl, {
             username: user,
             password: pass
         }, {
@@ -24,6 +24,6 @@ angular.module("urlCtrl")
     
     $scope.iscriviti = function(){
         $location.path("/subscribe");
-    }
+    };
     
 });

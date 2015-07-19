@@ -26,8 +26,12 @@
             <div class="text-center">
                 <button ng-disabled="login.$invalid" class="btn btn-primary" ng-click="accedi(username, password)">Accedi</button>
                 <button ng-disabled="login.$valid" class="btn btn-primary" ng-click="iscriviti()">Iscriviti</button>
-            </div>
-                          
+            </div>           
         </div>
-    </form>   
+    </form>  
+    <div class="alert alert-danger" ng-show="authenticationError">
+        Username o Password non validi.
+        <a href="#/subscribe" class="alert-link">Iscriviti</a>
+    </div>
+    </div>
 </div>

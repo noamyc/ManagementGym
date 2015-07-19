@@ -5,7 +5,6 @@ angular.module("urlCtrl")
 .controller("loginCtrl", function($scope, $http, userUrl, $location){
      
     $scope.accedi = function(user, pass){
-        
         $http.post(userUrl, {
             username: user,
             password: pass
@@ -20,6 +19,11 @@ angular.module("urlCtrl")
         }).error(function (error) {
             $scope.authenticationError = error;
         });
-        
     }; 
+    
+    
+    $scope.iscriviti = function(){
+        $location.path("/subscribe");
+    }
+    
 });

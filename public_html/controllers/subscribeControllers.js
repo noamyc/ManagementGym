@@ -16,10 +16,16 @@ angular.module("urlCtrl")
         $http.post(userUrl, iscritto).
         success(function(data) {
             console.log("Si");
-            $location.path("/user");
+            $location.path("/login");
         }).
         error(function(error) {
-            console.log("No");
-        });  
+            $scope.error = error;
+        });
     };
+    
+    
+    $scope.reload = function(){
+        location.reload();
+    };
+    
 });

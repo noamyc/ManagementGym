@@ -1,3 +1,41 @@
-<div>
-    <h3>Sei in user</h3>
+<div class="panel panel-default row" ng-controller="userCtrl">
+    <div class="col-xs-8">
+        
+        <table class="table table-striped table-bordered">
+            <tr>
+                <td>Username: </td>
+                <td>{{data.username}}</td>
+            </tr>
+            <tr>
+                <td>Age: </td>
+                <td>{{data.age}}</td>
+            </tr>
+            <tr>
+                <td>Telephone number: </td>
+                <td>{{data.telephonnumber}}</td>
+            </tr>
+            <tr>
+                <td>Weight: </td>
+                <td>
+                    <input type="text" ng-model="data.weight" ng-change="button1=true">
+                    <button type="button" ng-model="button1" ng-show="button1" ng-click="aggiorna(this)">Salva</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Height: </td>
+                <td>
+                    <input type="text" ng-model="data.height" ng-change="button2=true">
+                    <button type="button" ng-model="button2" ng-show="button2" ng-click="aggiorna(this)">Salva</button>
+                </td>
+            </tr>
+            
+            
+        </table>
+        
+        
+        
+    </div>
+    <div class="col-xs-3">
+        Secondo
+    </div>
 </div>

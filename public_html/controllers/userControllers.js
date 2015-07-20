@@ -1,8 +1,10 @@
 angular.module("urlCtrl")
 .constant("userUrlMe", "http://localhost:5500/users/me")
-.controller("userCtrl", function($scope, $http, userUrlMe, $location){
+.constant("userUrl", "http://localhost:5500/users")
+.controller("userCtrl", function($scope, $http, userUrlMe, userUrl){
     
     $scope.data;
+    
       
     $http.get(userUrlMe,{
         withCredentials: true
@@ -11,20 +13,26 @@ angular.module("urlCtrl")
             console.log("Errore");
         }
         $scope.data = data;
-        console.log($scope.data);
     }).error(function(error) {
         $scope.error = error;
     });
+        
     
-    $scope.aggiorna = function(element){
-        $scope.data.weight = element.value;
-        $http.post(userUrlMe, $scope.data)
-          .success(function(data){
-                console.log("aggiornato");
-        }).error(function(error){
-            console.log("Non aggirnato");
+    $scope.aggiorna = function(button, input, campo){
+        $scope.data[campo] = input;
+        $http.put(userUrl, $scope.data)
+            .success(function(data){
+                $scope.data = data;
+                $scope.reload();
+            }).error(function(error){
+                $scope.error = error;
         });
     };
+    
+    $scope.reload = function(){
+        location.reload();
+    };
+    
     
     
     

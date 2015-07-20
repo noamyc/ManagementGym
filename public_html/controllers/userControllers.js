@@ -23,19 +23,22 @@ angular.module("urlCtrl")
         $http.put(userUrl, $scope.data)
             .success(function(data){
                 $scope.data = data;
-                $scope.reload();
+                if(button == "button2"){
+                    $scope.button2 = false;
+                }
+                if(button == "button1"){
+                    $scope.button1 = false;
+                }
+                
             }).error(function(error){
                 $scope.error = error;
         });
     };
-    
-    $scope.reload = function(){
-        location.reload();
-    };
-    
+        
     $scope.abbonamentoScaduto = function(){
         var value;
         var today = Date();
+        console.log($scope.data);
         var index = $scope.data.subscription.length;
         index--;
         var date = new Date($scope.data.subscription[index].year, $scope.data.subscription[index].month, 

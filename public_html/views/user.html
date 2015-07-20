@@ -63,6 +63,37 @@
         
     </div>
     <div class="col-xs-3">
-        Secondo
+        
+        <div ng-hide="!abbonamentoScaduto()">
+            <h3>Rinnova il tuo abbonamento</h3>
+            <form>
+                <table class="table table-striped">
+                    <tr>
+                        <td><input type="radio" name="radioBtn"/></td>
+                        <td>Giornaliero</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="radioBtn"/></td>
+                        <td>Weekly</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="radioBtn"/></td>
+                        <td>Mensile</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="radioBtn" /></td>
+                        <td>Trimestrale</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="radioBtn"/></td>
+                        <td>Yearly</td>
+                    </tr>
+                </table>
+                <button class="btn btn-primary" ng-click="rinnova()">Rinnova abbonamento</button>
+            </form>
+            
+            
+        </div>
+        
     </div>
 </div>

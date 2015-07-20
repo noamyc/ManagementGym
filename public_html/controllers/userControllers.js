@@ -33,7 +33,21 @@ angular.module("urlCtrl")
         location.reload();
     };
     
-    
+    $scope.abbonamentoScaduto = function(){
+        var value;
+        var today = Date();
+        var index = $scope.data.subscription.length;
+        index--;
+        var date = new Date($scope.data.subscription[index].year, $scope.data.subscription[index].month, 
+            $scope.data.subscription[index].day, 00,00,00,00);
+        date.setDate(date.getDate()+ $scope.data.subscription[index].lenght);
+        if(date >= today){
+            value = true;
+        }else{
+            value = false;
+        }
+        return value;
+    };
     
     
 });

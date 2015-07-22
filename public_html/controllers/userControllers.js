@@ -7,11 +7,13 @@ angular.module("urlCtrl")
     var promise = getData()
     .then(function(num) {
         $scope.data = num;
+        $scope.abbonamento = $scope.abbonamentoScaduto();      
     }, function(reason){
-        console.log("Attendi");
+        console.log("Errore");
+    }).finally(function(num) {
+        console.log("Finito");
     });
     
-        
     
     $scope.aggiorna = function(button, input, campo){
         $scope.data[campo] = input;
@@ -30,29 +32,54 @@ angular.module("urlCtrl")
         });
     };
         
-    $scope.abbonamentoScaduto = function(){
-        var promise = getData()
-        .then(function(num) {
-            var value;
-            var today = Date();
-            console.log(num);
-            var index = num.subscription.length;
-            index--;
-            var date = new Date(num.subscription[index].year, num.subscription[index].month, 
-                num.subscription[index].day, 00,00,00,00);
-            date.setDate(date.getDate()+ num.subscription[index].lenght);
+    $scope.abbonamentoScaduto = function(){   
+        var value;
+        if($scope.data.subscription.length == 0){
+            value = true;
+        }else{
+            var today = new Date();
+            var index = $scope.data.subscription.length - 1;
+            var date = new Date($scope.data.subscription[index].date); 
+            var durata = $scope.data.subscription[index].lenght;
+            date.setDate(date.getDate() + parseInt(durata));
+
             if(date >= today){
-                value = true;
-            }else{
                 value = false;
+            }else{;
+                value = true;
             }
-            return value;
-        }, function(reason){
-            console.log("Attendi");
-        });
-        
+        }
+        return value;
     };
     
+    $scope.rinnova = function(){
+        var value = JSON.parse($scope.sub);
+        var date = new Date();
+        var lenght = value.lenght;
+        var price = value.price;
+        
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        
+        var dateOggetto = month + "/" + day + "/" + year;
+                
+        var oggetto = {
+            lenght:lenght,
+            price:price,
+            date:dateOggetto
+        };
+        
+        $scope.data.subscription.push(oggetto);
+        
+        $http.put(userUrl, $scope.data).
+                success(function(data){
+                    console.log("Aggiornato");
+        }).error(function(error){
+            console.log("Error");
+        });
+        $scope.abbonamentoScaduto();
+    };
     
 });
 function getData($timeout, $q, $http) {

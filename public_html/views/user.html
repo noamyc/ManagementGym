@@ -1,4 +1,5 @@
 <div class="panel panel-default row" ng-controller="userCtrl">
+   
     <div class="col-xs-8">
         
         <table class="table table-striped table-bordered">
@@ -27,9 +28,7 @@
                     <input type="text" ng-model="data.height" ng-change="button2=true">
                     <input type="button" ng-show="button2" ng-hide="!button2" ng-click="aggiorna('button2', data.height, 'height')" value="Salva"/>
                 </td>
-            </tr>    
-            
-            
+            </tr>                
             <tr>
                 <td>Board training's name</td>
                 <td>
@@ -42,14 +41,13 @@
                     {{data.boardtraining.description}}
                 </td>
             </tr>
-            
             <tr>
                 <td>Subscribtions</td>
                 <td>
                     <ol>
                         <li ng-repeat="sub in data.subscription">
                             Abbonamento di  {{sub.lenght}}  giorni, al costo di  {{sub.price}} €, attivato il 
-                            {{sub.day}} / {{sub.month}} / {{sub.year}}
+                            {{sub.date.toString()}}
                         </li>
                     </ol>
                 </td>
@@ -64,32 +62,32 @@
     </div>
     <div class="col-xs-3">
         
-        <div ng-hide="!abbonamentoScaduto()">
+        <div ng-show="abbonamento" ng-hide="!abbonamento">
             <h3>Rinnova il tuo abbonamento</h3>
-            <form>
+            <form name="subscribe" novalidate> 
                 <table class="table table-striped">
                     <tr>
-                        <td><input type="radio" name="radioBtn"/></td>
+                        <td><input type="radio" value='{ "lenght":"1", "price":"5" }' ng-model="sub" required/></td>
                         <td>Giornaliero</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="radioBtn"/></td>
+                        <td><input type="radio" value='{ "lenght":"7", "price":"15" }' ng-model="sub" required></td>
                         <td>Weekly</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="radioBtn"/></td>
+                        <td><input type="radio" value='{ "lenght":"30", "price":"50" }' ng-model="sub" required/></td>
                         <td>Mensile</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="radioBtn" /></td>
+                        <td><input type="radio" value='{ "lenght":"90", "price":"100" }' ng-model="sub" required/></td>
                         <td>Trimestrale</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="radioBtn"/></td>
+                        <td><input type="radio" value='{ "lenght":"364", "price":"400" }' ng-model="sub" required/></td>
                         <td>Yearly</td>
                     </tr>
                 </table>
-                <button class="btn btn-primary" ng-click="rinnova()">Rinnova abbonamento</button>
+                <button class="btn btn-primary" ng-disabled="subscribe.$invalid" ng-click="rinnova()">Rinnova abbonamento</button>
             </form>
             
             

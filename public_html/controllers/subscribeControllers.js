@@ -24,8 +24,4 @@ angular.module("urlCtrl")
     };
     
     
-    $scope.reload = function(){
-        location.reload();
-    };
-    
 });

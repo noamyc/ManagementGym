@@ -2,7 +2,8 @@ angular.module("urlCtrl")
 .factory('getData', getData)
 .constant("userUrlMe", "http://localhost:5500/users/me")
 .constant("userUrl", "http://localhost:5500/users")
-.controller("userCtrl", function($scope, $http, userUrlMe, userUrl, getData){
+.constant("logoutUrl", "http://localhost:5500/users/logout")
+.controller("userCtrl", function($scope, $http, userUrlMe, userUrl, logoutUrl, getData, $location){
     
     var promise = getData()
     .then(function(num) {
@@ -79,6 +80,15 @@ angular.module("urlCtrl")
             console.log("Error");
         });
         $scope.abbonamentoScaduto();
+    };
+    
+    $scope.logout = function(){
+        $http.post(logoutUrl).
+            success(function(data){
+                $location.path("/login");
+            }).error(function(error){
+                console.log("ERRORE");
+        });
     };
     
 });

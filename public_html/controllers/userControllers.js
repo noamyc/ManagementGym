@@ -1,21 +1,16 @@
 angular.module("urlCtrl")
+.factory('getData', getData)
 .constant("userUrlMe", "http://localhost:5500/users/me")
 .constant("userUrl", "http://localhost:5500/users")
-.controller("userCtrl", function($scope, $http, userUrlMe, userUrl){
+.controller("userCtrl", function($scope, $http, userUrlMe, userUrl, getData){
     
-    $scope.data;
-    
-      
-    $http.get(userUrlMe,{
-        withCredentials: true
-    }).success(function(data) {
-        if(!data){
-            console.log("Errore");
-        }
-        $scope.data = data;
-    }).error(function(error) {
-        $scope.error = error;
+    var promise = getData()
+    .then(function(num) {
+        $scope.data = num;
+    }, function(reason){
+        console.log("Attendi");
     });
+    
         
     
     $scope.aggiorna = function(button, input, campo){
@@ -36,21 +31,39 @@ angular.module("urlCtrl")
     };
         
     $scope.abbonamentoScaduto = function(){
-        var value;
-        var today = Date();
-        console.log($scope.data);
-        var index = $scope.data.subscription.length;
-        index--;
-        var date = new Date($scope.data.subscription[index].year, $scope.data.subscription[index].month, 
-            $scope.data.subscription[index].day, 00,00,00,00);
-        date.setDate(date.getDate()+ $scope.data.subscription[index].lenght);
-        if(date >= today){
-            value = true;
-        }else{
-            value = false;
-        }
-        return value;
+        var promise = getData()
+        .then(function(num) {
+            var value;
+            var today = Date();
+            console.log(num);
+            var index = num.subscription.length;
+            index--;
+            var date = new Date(num.subscription[index].year, num.subscription[index].month, 
+                num.subscription[index].day, 00,00,00,00);
+            date.setDate(date.getDate()+ num.subscription[index].lenght);
+            if(date >= today){
+                value = true;
+            }else{
+                value = false;
+            }
+            return value;
+        }, function(reason){
+            console.log("Attendi");
+        });
+        
     };
     
     
 });
+function getData($timeout, $q, $http) {
+    return function() {
+      return $q(function(resolve, reject) {
+        $http.get("http://localhost:5500/users/me", {withCredentials:true}).
+          success(function(data){
+              resolve(data);
+        }).error(function(error){
+              reject(error);
+        });
+      });
+    };
+}

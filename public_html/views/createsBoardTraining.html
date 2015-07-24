@@ -14,22 +14,20 @@
         </table>
     </div>
     <div>
-        <table>
-            <h3>Edit Board Training</h3>
-            <tr>
-            <label>Board Name       </label>
-            <input align="center" type="text" name="boardName" value=""><br>
-            </tr>
-            <tr>
-            <form name="brdDescription">
-                <textarea name="boardDescription" cols="70" rows="10"
-                          onclick="document.brdDescription.boardDescription.value = '';">
-                    Type here the description 
-                </textarea>
-            </form>
-            </tr>    
-        </table>
+       <form role="form">
+           <div class="form-group">
+                <label for="brdName">Board Name</label>
+                <input type="text" class="form-control" ng-model="brdName" id="brdName">
+           </div>
+           <div class="form-group">
+               <label for="brdDescription">Description</label>
+               <textarea class="form-control" rows="5" ng-model="brdDescription" id="brdDescription"></textarea>
+           </div>
+           <div>
+               <button class="btn btn-primary"
+                ng-click="newBoardTraining()">Submit</button>
+           </div>
+        </form>
     </div>
-    <button align="center" class="btn btn-primary"
-            ng-click="setBoardTraining()">Submit</button>
+    
 </div>

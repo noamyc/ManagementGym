@@ -1,16 +1,35 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<div ng-controller="createBoardTrainingControllers">
+    <div>
+        <h3>Creates Board Training</h3>
+        <table class="table table-striped">
+            <tr>
+                <td>Name</td>
+                <td>Description</td>
+            </tr>
+            <tr ng-repeat="board in boardtraining">
+                <td>{{board.name}}</td>
+                <td>{{board.description}}</td>
+            </tr>
+            
+        </table>
+    </div>
+    <div>
+        <table>
+            <h3>Edit Board Training</h3>
+            <tr>
+            <label>Board Name       </label>
+            <input align="center" type="text" name="boardName" value=""><br>
+            </tr>
+            <tr>
+            <form name="brdDescription">
+                <textarea name="boardDescription" cols="70" rows="10"
+                          onclick="document.brdDescription.boardDescription.value = '';">
+                    Type here the description 
+                </textarea>
+            </form>
+            </tr>    
+        </table>
+    </div>
+    <button align="center" class="btn btn-primary"
+            ng-click="setBoardTraining()">Submit</button>
+</div>

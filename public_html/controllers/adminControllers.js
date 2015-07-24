@@ -16,6 +16,21 @@ angular.module("urlCtrl")
     $scope.selectUser = function(user){
         $scope.userSelected = user;
     };
+    
+    $scope.aggiorna = function(button){
+        var url = userUrl + "/" + $scope.userSelected.id;
+
+        $http.put(url, $scope.userSelected)
+            .success(function(data){
+                $scope.userSelected = data;
+                console.log(button);
+                $scope[button] = false;
+                $scope.button = false;                
+            }).error(function(error){
+                $scope.error = error;
+        });
+    };
+        
      
      
     

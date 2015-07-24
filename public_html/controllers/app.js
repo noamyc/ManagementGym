@@ -12,6 +12,9 @@ angular.module("urlCtrl", ["ngRoute"])
     $routeProvider.when("/subscribe", {
         templateUrl: "views/subscribe.html"
     });
+    $routeProvider.when("/admin/createsBoardTraining", {
+        templateUrl: "views/createsBoardTraining.html"
+    });
     $routeProvider.otherwise({
         templateUrl: "views/login.html"
     });

@@ -10,6 +10,11 @@
                     Details
                 </button>
             </td>
+            <td>
+                <button ng-click="deleteUser(user)" class="btn btn-xs btn-danger">
+                    Delete
+                </button>
+            </td>
         </tr>
     </table>
     <div ng-show="userSelected">
@@ -52,7 +57,14 @@
             </tr>
             <tr>
                 <td>Boardtraining</td>
-                <td>{{userSelected.boardtraining.name}}</td>
+                <td>
+                    <ol ng-repeat="board in boards">
+                        <input type="radio" ng-model="brd" name="radio" ng-value="{{board.nome}}"
+                               ng-checked="board.name === userSelected.boardtraining.name"
+                               ng-click="showButton(board.name)"/>{{board.name}}
+                    </ol>
+                    <input type="button" ng-model="button5" ng-show="button5" ng-hide="!button5" ng-click="addBoard('button5')" value="Salva"/>
+                </td>
             </tr>
             <tr>
                 <td>Subscriptions</td>
@@ -70,5 +82,9 @@
         </table>
     </div>
     
+    <div class="text-center">
+        <button class="btn btn-success" ng-click="boardTraining()">Create boardtraining</button>
+        <button class="btn btn-danger" ng-click="logout()">Logout</button>
+    </div>
     
 </div>

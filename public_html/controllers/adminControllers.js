@@ -2,7 +2,7 @@ angular.module("urlCtrl")
 .constant("userUrl", "http://localhost:5500/users")
 .constant("logoutUrl", "http://localhost:5500/users/logout")
 .constant("editBoardUrl", "http://localhost:5500/boardtraining")
-.controller("adminCtrl", function($scope, $http, userUrl, logoutUrl, getData, editBoardUrl, $location){
+.controller("adminCtrl", function($scope, $http, userUrl, logoutUrl, editBoardUrl, $location){
     
     $scope.userSelected;
     $scope.boardSelected;

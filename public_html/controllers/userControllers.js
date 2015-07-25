@@ -1,18 +1,16 @@
 angular.module("urlCtrl")
-.factory('getData', getData)
 .constant("userUrlMe", "http://localhost:5500/users/me")
 .constant("userUrl", "http://localhost:5500/users")
 .constant("logoutUrl", "http://localhost:5500/users/logout")
-.controller("userCtrl", function($scope, $http, userUrlMe, userUrl, logoutUrl, getData, $location){
+.controller("userCtrl", function($scope, $http, userUrlMe, userUrl, logoutUrl, $location){
     
-    var promise = getData()
-    .then(function(num) {
-        $scope.data = num;
-        $scope.abbonamento = $scope.abbonamentoScaduto();      
-    }, function(reason){
-        console.log("Errore");
-    }).finally(function(num) {
-        console.log("Finito");
+
+    $http.get(userUrlMe, {withCredentials:true})
+    .success(function(data){
+        $scope.data = data;
+        $scope.abbonamento = $scope.abbonamentoScaduto(); 
+    }).error(function(error){
+        $scope.error = error;
     });
     
     
@@ -92,15 +90,3 @@ angular.module("urlCtrl")
     };
     
 });
-function getData($timeout, $q, $http) {
-    return function() {
-      return $q(function(resolve, reject) {
-        $http.get("http://localhost:5500/users/me", {withCredentials:true}).
-          success(function(data){
-              resolve(data);
-        }).error(function(error){
-              reject(error);
-        });
-      });
-    };
-}

@@ -3,6 +3,13 @@ angular.module("urlCtrl")
 .constant("userUrl", "http://localhost:5500/users")
 .controller("subscribeCtrl", function($scope, $http, userUrl, $location){
      
+    $http.get(userUrl)
+        .success(function(data){
+            $scope.users = data;
+        }).error(function(error){
+            $scope.error = error;
+    });
+     
     $scope.iscriviti = function(username, password, age, telephonnumber, weight, height){
         var iscritto = {
             username:username,
@@ -12,7 +19,7 @@ angular.module("urlCtrl")
             weight:weight,
             height:height
         };
-                
+
         $http.post(userUrl, iscritto).
         success(function(data) {
             console.log("Si");
@@ -21,6 +28,19 @@ angular.module("urlCtrl")
         error(function(error) {
             $scope.error = error;
         });
+    };
+
+    $scope.setValidity = function(element){
+
+        var exit = false;
+        for(var i=0; (i<$scope.users.length) && (exit==false);i++){
+            if(element == $scope.users[i].username){
+                $scope.subscribe.username.$setValidity("unique", false);
+                exit = true;
+            }else{
+                $scope.subscribe.username.$setValidity("unique", true);
+            }
+        }
     };
     
     

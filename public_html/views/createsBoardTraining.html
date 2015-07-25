@@ -1,3 +1,9 @@
+<style>
+    .ng-invalid { background-color: lightpink; }
+    .ng-valid { background-color: lightgreen; }
+    span.error { color: red; font-weight: bold; }
+</style>
+
 <div ng-controller="boardCtrl">
     <div>
         <h3>Creates Board Training</h3>
@@ -14,19 +20,23 @@
         </table>
     </div>
     <div>
-       <form role="form">
-           <div class="form-group">
-                <label for="brdName">Board Name</label>
-                <input type="text" class="form-control" ng-model="brdName" id="brdName">
-           </div>
-           <div class="form-group">
-               <label for="brdDescription">Description</label>
-               <textarea class="form-control" rows="5" ng-model="brdDescription" id="brdDescription"></textarea>
-           </div>
-           <div>
-               <button class="btn btn-primary"
-                ng-click="newBoardTraining()">Submit</button>
-           </div>
+        <form name="form" novalidate>
+            <div class="well">
+                <div class="form-group">
+                    <label for="brdName">Board Name</label>
+                    <input type="text" class="form-control" ng-model="brdName" name="brdName" ng-change="setValidity(brdName)" required>
+                    <span class="error" ng-show="form.brdName.$error.required">Insert the name of board</span>
+                    <span class="error" ng-show="form.brdName.$error.unique">Name of board is already used</span>
+                </div>
+                <div class="form-group">
+                    <label for="brdDescription">Description</label>
+                    <textarea class="form-control" rows="5" ng-model="brdDescription" name="brdDescription" required></textarea>
+                    <span class="error" ng-show="form.brdName.$error.required">Insert the description of board</span>
+                </div>
+                <div>
+                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="newBoardTraining()">Submit</button>
+                </div>
+            </div>
         </form>
     </div>
     

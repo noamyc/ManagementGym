@@ -10,10 +10,9 @@
         <div class="well">
             <div class="form-group">
                 <label>Username</label>
-                <input name="username" class="form-control" ng-model="username" required />
-                <span class="error" ng-show="subscribe.username.$error.required">
-                    Inserisci username
-                </span>
+                <input name="username" class="form-control" ng-model="username" ng-change="setValidity(username)" required />
+                <span class="error" ng-show="subscribe.username.$error.required">Inserisci username</span>
+                <span class="error" ng-show="subscribe.username.$error.unique">The username is already used</span>
             </div>
             <div class="form-group">
                 <label>Password</label>

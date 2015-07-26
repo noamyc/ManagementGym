@@ -1,86 +1,123 @@
 <div ng-controller="adminCtrl">
-    <table class="table table-striped">
-        <tr><th>Username</th><th>Subscribtion lenght</th><th>Subscraption date</th><th></th></tr>
-        <tr ng-repeat="user in users">
-            <td>{{user.username}}</td>
-            <td>{{user.subscription[user.subscription.length-1].lenght}}</td>
-            <td>{{user.subscription[user.subscription.length-1].date}}</td>
-            <td>
-                <button ng-click="selectUser(user)" class="btn btn-xs btn-primary">
-                    Details
-                </button>
-            </td>
-            <td>
-                <button ng-click="deleteUser(user)" class="btn btn-xs btn-danger">
-                    Delete
-                </button>
-            </td>
-        </tr>
-    </table>
-    <div ng-show="userSelected">
-        <h3>{{userSelected.username}}'s Details</h3>
-        <table class="table table-striped table-bordered">
-            <tr>
-                <td>Username</td>
-                <td>
-                    <input type="text" ng-model="userSelected.username" ng-change="button=true">
-                    <input type="button" ng-model="button" ng-show="button" ng-hide="!button" ng-click="aggiorna('button')" value="Salva"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Age</td>
-                <td>
-                    <input type="text" ng-model="userSelected.age" ng-change="button1=true">
-                    <input type="button" ng-model="button1" ng-show="button1" ng-hide="!button1" ng-click="aggiorna('button1')" value="Salva"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Telephone number</td>
-                <td>
-                    <input type="text" ng-model="userSelected.telephonnumber" ng-change="button2=true">
-                    <input type="button" ng-model="button2" ng-show="button2" ng-hide="!button2" ng-click="aggiorna('button2')" value="Salva"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Weight</td>
-                <td>
-                    <input type="text" ng-model="userSelected.weight" ng-change="button3=true">
-                    <input type="button" ng-model="button3" ng-show="button3" ng-hide="!button3" ng-click="aggiorna('button3')" value="Salva"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Height</td>
-                <td>
-                    <input type="text" ng-model="userSelected.height" ng-change="button4=true">
-                    <input type="button" ng-model="button4" ng-show="button4" ng-hide="!button4" ng-click="aggiorna('button4')" value="Salva"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Boardtraining</td>
-                <td>
-                    <ol ng-repeat="board in boards">
-                        <input type="radio" ng-model="brd" name="radio" ng-value="{{board.nome}}"
-                               ng-checked="board.name === userSelected.boardtraining.name"
-                               ng-click="showButton(board.name)"/>{{board.name}}
-                    </ol>
-                    <input type="button" ng-model="button5" ng-show="button5" ng-hide="!button5" ng-click="addBoard('button5')" value="Salva"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Subscriptions</td>
-                <td>
-                    <ol>
-                        <li ng-repeat="sub in userSelected.subscription">
-                            Abbonamento di  {{sub.lenght}}  giorni, al costo di  {{sub.price}} €, attivato il 
-                            {{sub.date.toString()}}
-                        </li>
-                    </ol>
-                </td>
-            </tr>
-            
-            
-        </table>
+    <div class="alert alert-danger" ng-show="error">
+        Communication problems with the server.
+        <a href="#/admin" class="alert-link">Reload page</a>
     </div>
+    <div ng-hide="error">
+        <table class="table table-striped">
+            <tr><th>Username</th><th>Subscribtion lenght</th><th>Subscription date</th><th></th></tr>
+            <tr ng-repeat="user in users">
+                <td>{{user.username}}</td>
+                <td>{{user.subscription[user.subscription.length-1].lenght}}</td>
+                <td>{{user.subscription[user.subscription.length-1].date}}</td>
+                <td>
+                    <button ng-click="selectUser(user)" class="btn btn-xs btn-primary">
+                        Details
+                    </button>
+                </td>
+                <td>
+                    <button ng-click="deleteUser(user)" class="btn btn-xs btn-danger">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <!-- Details -->
+        <div ng-show="userSelected">
+            <h3>{{userSelected.username}}'s Details</h3>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td>Username</td>
+                    <td>
+                        <input type="text" ng-model="userSelected.username" ng-change="button=true">
+                        <input type="button" ng-model="button" ng-show="button" ng-hide="!button" ng-click="update('button')" value="Save"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>
+                        <input type="text" ng-model="userSelected.age" ng-change="button1=true">
+                        <input type="button" ng-model="button1" ng-show="button1" ng-hide="!button1" ng-click="update('button1')" value="Save"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Telephone number</td>
+                    <td>
+                        <input type="text" ng-model="userSelected.telephonnumber" ng-change="button2=true">
+                        <input type="button" ng-model="button2" ng-show="button2" ng-hide="!button2" ng-click="update('button2')" value="Save"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td>
+                        <input type="text" ng-model="userSelected.weight" ng-change="button3=true">
+                        <input type="button" ng-model="button3" ng-show="button3" ng-hide="!button3" ng-click="update('button3')" value="Save"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Height</td>
+                    <td>
+                        <input type="text" ng-model="userSelected.height" ng-change="button4=true">
+                        <input type="button" ng-model="button4" ng-show="button4" ng-hide="!button4" ng-click="update('button4')" value="Save"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Boardtraining</td>
+                    <td>
+                        <div ng-show="!boards.error && userSelected.boardtraining">
+                            <ol ng-repeat="board in boards">
+                                <input type="radio" ng-model="brd" name="radio" 
+                                       ng-checked="board.name === userSelected.boardtraining.name"
+                                       ng-click="showButton('button5', board.name)"/>{{board.name}}
+                            </ol>
+                            <input type="button" ng-model="button5" ng-show="button5" ng-hide="!button5" ng-click="addBoard('button5')" value="Save"/>
+                        </div>
+                        <div ng-show="!boards.error && !userSelected.boardtraining">
+
+                            <ol ng-repeat="boardNull in boards">
+                                <input type="radio" ng-model="brd" name="radio" 
+                                       ng-checked="false"
+                                       ng-click="showButton('button6', boardNull.name)"/>{{boardNull.name}}
+                            </ol>
+                            <input type="button" ng-model="button6" ng-show="button6" ng-hide="!button6" ng-click="addBoard('button6')" value="Save"/>
+
+                        </div>
+                        <div class="alert alert-danger" ng-show="boardserror">
+                            Communication problems with the server.
+                            <a href="#/admin" class="alert-link">Reload page</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Subscriptions</td>
+                    <td>
+                        <ol>
+                            <li ng-repeat="sub in userSelected.subscription">
+                                Subscription {{sub.lenght}} days, at the cost of {{sub.price}} €, activated 
+                                {{sub.date.toString()}}
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total reward</td>
+                    <td>
+                       {{totalPrice}} €
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total lenght</td>
+                    <td>
+                       {{totalLenght}} days
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+    
+    
     
     <div class="text-center">
         <button class="btn btn-success" ng-click="boardTraining()">Create boardtraining</button>

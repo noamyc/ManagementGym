@@ -5,39 +5,48 @@
 </style>
 
 <div ng-controller="boardCtrl">
-    <div>
-        <h3>Creates Board Training</h3>
-        <table class="table table-striped">
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-            <tr ng-repeat="board in boardtraining">
-                <td>{{board.name}}</td>
-                <td>{{board.description}}</td>
-            </tr>
-            
-        </table>
+    <div class="alert alert-danger" ng-show="error">
+        Communication problems with the server.
+        <a href="#/admin/createsBoardTraining" class="alert-link">Reload page</a>
     </div>
-    <div>
-        <form name="form" novalidate>
-            <div class="well">
-                <div class="form-group">
-                    <label for="brdName">Board Name</label>
-                    <input type="text" class="form-control" ng-model="brdName" name="brdName" ng-change="setValidity(brdName)" required>
-                    <span class="error" ng-show="form.brdName.$error.required">Insert the name of board</span>
-                    <span class="error" ng-show="form.brdName.$error.unique">Name of board is already used</span>
+    <div ng-hide="error">
+        <div>
+            <h3>Creates Board Training</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+                <tr ng-repeat="board in boardtraining">
+                    <td>{{board.name}}</td>
+                    <td>{{board.description}}</td>
+                </tr>
+
+            </table>
+        </div>
+        <div>
+            <form name="form" novalidate>
+                <div class="well">
+                    <div class="form-group">
+                        <label for="brdName">Board Name</label>
+                        <input type="text" class="form-control" ng-model="brdName" name="brdName" ng-change="setValidity(brdName)" required>
+                        <span class="error" ng-show="form.brdName.$error.required">Insert the name of board</span>
+                        <span class="error" ng-show="form.brdName.$error.unique">Name of board is already used</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="brdDescription">Description</label>
+                        <textarea class="form-control" rows="5" ng-model="brdDescription" name="brdDescription" required></textarea>
+                        <span class="error" ng-show="form.brdName.$error.required">Insert the description of board</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="newBoardTraining()">Submit</button>
+                        <div class="alert alert-danger" ng-show="errorboard">
+                            Communication problems with the server.
+                            <a href="#/admin/createsBoardTraining" class="alert-link">Reload page</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="brdDescription">Description</label>
-                    <textarea class="form-control" rows="5" ng-model="brdDescription" name="brdDescription" required></textarea>
-                    <span class="error" ng-show="form.brdName.$error.required">Insert the description of board</span>
-                </div>
-                <div>
-                    <button class="btn btn-primary" ng-disabled="form.$invalid" ng-click="newBoardTraining()">Submit</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-    
 </div>

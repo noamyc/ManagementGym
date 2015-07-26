@@ -19,14 +19,14 @@
                     <td>Weight </td>
                     <td>
                         <input type="text" ng-model="data.weight" ng-change="button1=true">
-                        <input type="button" ng-show="button1" ng-hide="!button1" ng-click="aggiorna('button1', data.weight, 'weight')" value="Salva"/>
+                        <input type="button" ng-show="button1" ng-hide="!button1" ng-click="update('button1', data.weight, 'weight')" value="Save"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Height </td>
                     <td>
                         <input type="text" ng-model="data.height" ng-change="button2=true">
-                        <input type="button" ng-show="button2" ng-hide="!button2" ng-click="aggiorna('button2', data.height, 'height')" value="Salva"/>
+                        <input type="button" ng-show="button2" ng-hide="!button2" ng-click="update('button2', data.height, 'height')" value="Save"/>
                     </td>
                 </tr>    
 
@@ -49,7 +49,7 @@
                     <td>
                         <ol>
                             <li ng-repeat="sub in data.subscription">
-                                Abbonamento di  {{sub.lenght}}  giorni, al costo di  {{sub.price}} €, attivato il 
+                                Subscription {{sub.lenght}} days, at the cost of {{sub.price}} €, activated 
                                 {{sub.date.toString()}}
                             </li>
                         </ol>
@@ -58,39 +58,39 @@
 
             </table>
             <div class="alert alert-danger" ng-show="error" >
-                Errore nell'aggiornamento
-                <a href="" class="alert-link" ng-click="reload()">Riprova</a>
+                Updating error
+                <a href="" class="alert-link" ng-click="reload()">Try again</a>
             </div>
 
         </div>
         <div class="col-xs-3">
 
-            <div ng-show="abbonamento" ng-hide="!abbonamento">
-                <h3>Rinnova il tuo abbonamento</h3>
+            <div ng-show="subscription" ng-hide="!subscription">
+                <h3>Renews your subscription</h3>
                 <form name="subscribe" novalidate> 
                     <table class="table table-striped">
                         <tr>
                             <td><input type="radio" value='{ "lenght":"1", "price":"5" }' ng-model="sub" required/></td>
-                            <td>Giornaliero</td>
+                            <td>Dayly</td>
                         </tr>
                         <tr>
                             <td><input type="radio" value='{ "lenght":"7", "price":"15" }' ng-model="sub" required></td>
-                            <td>Settimanale</td>
+                            <td>Weekly</td>
                         </tr>
                         <tr>
                             <td><input type="radio" value='{ "lenght":"30", "price":"50" }' ng-model="sub" required/></td>
-                            <td>Mensile</td>
+                            <td>Monthly</td>
                         </tr>
                         <tr>
                             <td><input type="radio" value='{ "lenght":"90", "price":"100" }' ng-model="sub" required/></td>
-                            <td>Trimestrale</td>
+                            <td>Quarterly</td>
                         </tr>
                         <tr>
                             <td><input type="radio" value='{ "lenght":"364", "price":"400" }' ng-model="sub" required/></td>
-                            <td>Annuale</td>
+                            <td>Yearly</td>
                         </tr>
                     </table>
-                    <button class="btn btn-primary" ng-disabled="subscribe.$invalid"  ng-click="rinnova()">Rinnova abbonamento</button>
+                    <button class="btn btn-primary" ng-disabled="subscribe.$invalid"  ng-click="renews()">Renews subscription</button>
                 </form>
             </div>
         </div>

@@ -11,7 +11,7 @@ angular.module("urlCtrl")
     .success(function(data){
         $scope.boards = data;
     }).error(function(error){
-        $scope.boards.error = error;
+        $scope.boardserror = error;
     });
     
     
@@ -19,14 +19,16 @@ angular.module("urlCtrl")
     .success(function(data){
         $scope.users = data;
     }).error(function(error){
+        console.log("Error");
         $scope.error = error;
     });
     
     $scope.selectUser = function(user){
         $scope.userSelected = user;
+        $scope.compute();
     };
     
-    $scope.aggiorna = function(button){
+    $scope.update = function(button){
         var url = userUrl + "/" + $scope.userSelected.id;
 
         $http.put(url, $scope.userSelected)
@@ -40,8 +42,8 @@ angular.module("urlCtrl")
         });
     };
     
-    $scope.showButton = function(nameBoard){
-        $scope.button5 = true;
+    $scope.showButton = function(button,nameBoard){
+        $scope[button] = true;
         $scope.boardSelected = nameBoard;
     };
     
@@ -94,6 +96,17 @@ angular.module("urlCtrl")
    
     $scope.boardTraining = function(){
         $location.path("/admin/createsBoardTraining");
+    };
+    
+    $scope.compute = function(){
+        var totalPrice = 0;
+        var totalLenght = 0;
+        angular.forEach($scope.userSelected.subscription, function(value){
+            totalPrice += parseInt(value.price);
+            totalLenght += parseInt(value.lenght);
+        });
+        $scope.totalLenght = totalLenght;
+        $scope.totalPrice = totalPrice;
     };
     
 });

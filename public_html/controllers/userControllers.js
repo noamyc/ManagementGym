@@ -8,32 +8,31 @@ angular.module("urlCtrl")
     $http.get(userUrlMe, {withCredentials:true})
     .success(function(data){
         $scope.data = data;
-        $scope.abbonamento = $scope.abbonamentoScaduto(); 
+        $scope.subscription = $scope.subscriptionExpired(); 
     }).error(function(error){
         $scope.error = error;
     });
     
     
-    $scope.aggiorna = function(button, input, campo){
-        $scope.data[campo] = input;
+    $scope.update = function(button, input, field){
+        $scope.data[field] = input;
         $http.put(userUrl, $scope.data)
-            .success(function(data){
-                $scope.data = data;
-                if(button == "button2"){
-                    $scope.button2 = false;
-                }
-                if(button == "button1"){
-                    $scope.button1 = false;
-                }
-                
-            }).error(function(error){
-                $scope.error = error;
+        .success(function(data){
+            $scope.data = data;
+            if(button == "button2"){
+                $scope.button2 = false;
+            }
+            if(button == "button1"){
+                $scope.button1 = false;
+            }
+        }).error(function(error){
+            $scope.error = error;
         });
     };
         
-    $scope.abbonamentoScaduto = function(){   
+    $scope.subscriptionExpired = function(){   
         var value;
-        if($scope.data.subscription.length == 0){
+        if(!$scope.data.subscription){
             value = true;
         }else{
             var today = new Date();
@@ -51,7 +50,7 @@ angular.module("urlCtrl")
         return value;
     };
     
-    $scope.rinnova = function(){
+    $scope.renews = function(){
         var value = JSON.parse($scope.sub);
         var date = new Date();
         var lenght = value.lenght;
@@ -61,23 +60,26 @@ angular.module("urlCtrl")
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
         
-        var dateOggetto = month + "/" + day + "/" + year;
+        var dateObject = month + "/" + day + "/" + year;
                 
-        var oggetto = {
+        var object = {
             lenght:lenght,
             price:price,
-            date:dateOggetto
+            date:dateObject
         };
         
-        $scope.data.subscription.push(oggetto);
+        if(!$scope.data.subscription){
+            $scope.data.subscription = [];
+        }
+        $scope.data.subscription.push(object);
         
         $http.put(userUrl, $scope.data).
-                success(function(data){
-                    console.log("Aggiornato");
+        success(function(data){
+            console.log("Updated");
         }).error(function(error){
             console.log("Error");
         });
-        $scope.abbonamentoScaduto();
+        $scope.subscription = $scope.subscriptionExpired(); 
     };
     
     $scope.logout = function(){
@@ -85,7 +87,7 @@ angular.module("urlCtrl")
             success(function(data){
                 $location.path("/login");
             }).error(function(error){
-                console.log("ERRORE");
+                console.log("Error");
         });
     };
     

@@ -10,7 +10,7 @@ angular.module("urlCtrl")
             $scope.error = error;
     });
      
-    $scope.iscriviti = function(username, password, age, telephonnumber, weight, height){
+    $scope.subscribeButton = function(username, password, age, telephonnumber, weight, height){
         var iscritto = {
             username:username,
             password:password,
